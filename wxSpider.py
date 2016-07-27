@@ -19,7 +19,7 @@ from urllib import quote
 from selenium import webdriver
 import time
 from lxml import etree
-
+import re
 
 class weixinSpider(object):
 	"""docstring for weixinSpider"""
@@ -71,14 +71,19 @@ class weixinSpider(object):
 					title=sel.xpath('h4[@class="weui_media_title"]')[0].xpath('string(.)').strip()
 					desc=sel.xpath('*[@class="weui_media_desc"]/text()')[0]
 					pubtime=sel.xpath('*[@class="weui_media_extra_info"]/text()')[0]
-					print(hrefs.encode('utf-8'))
-					print(title.encode('utf-8'))
-					print(desc.encode('utf-8'))
-					print(pubtime.encode('utf-8'))
-					print('----------------')
-					# break # 为了便于观察只显示第一个文章的信息
+					# 将文章的临时链接转换成真实文章链接
+					temp_link='http://mp.weixin.qq.com'+str(hrefs)
 
-
+					print(temp_link.encode('utf-8'))
+					print('真实链接如下')
+					real_link=self.getRealLink(temp_link)
+					print(real_link)
+					print('真实链接如上')
+					# print(title.encode('utf-8'))
+					# print(desc.encode('utf-8'))
+					# print(pubtime.encode('utf-8'))
+					# print('----------------')
+					break # 为了便于观察只显示第一个文章的信息
 
 
 	# 获取微信文章列表数据
@@ -114,9 +119,26 @@ class weixinSpider(object):
 				html=self.driver.execute_script("return document.documentElement.outerHTML")
 				# print(html.encode('utf-8'))
 
+	# 通过临时链接获取文章真实链接
+	def getRealLink(self,tmpLink):
+		# 获取网页内容
+		self.driver.get(tmpLink)
+		html=self.driver.page_source
+		# print(html.encode('utf-8'))
+		# with open('123.html','w') as f:
+		# 	f.write(html.encode('utf-8'))
 
+		# 使用正则获取 msg_link 的值
+		msg_link=re.compile(r'var msg_link = "(.+?)";')
+		# http://mp.weixin.qq.com/s?__biz=MzAwNTMxMzg1MA==&amp;mid=2654067783&amp;idx=1&amp;sn=a0778a114e18f9468b5745d4f8401cda#rd
+		m_link=msg_link.search(html)
+		real_link=''
+		if m_link:
+			msgcover=m_link.group(1)
+			real_link=msgcover.replace('&amp;','&')
 
-
+		# print(real_link)
+		return real_link
 
 
 	def __del__(self):

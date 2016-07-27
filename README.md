@@ -36,21 +36,28 @@ PhantomJS  (从phantomjs官网下载安装包)
 
 * `2016-7-23` 实现抓取指定公众号最近发布的10条群发文章列表数据。目前实现了提取 `title` `link` `desc` `pubtime` 四项(仅提供思路，可自行修改)，由于搜狗反爬虫机制，获取到的文章详情链接有时效性，~~待解决~~ 已解决。
 * `2016-7-24` 添加思路分析如何通过临时链接获取到文章内容的真实链接，详见 [GETCONTENT](GETCONTENT.md) 说明。
+* `2016-7-26` 代码实现根据文章临时链接获取真实链接。
 
 *** 
 
 #### 相关知识
 
-* https://www.zhihu.com/question/31285583/answer/100263061
-* https://github.com/Alexis374/tech_post/blob/master/crawl%20wechat%20article.md
-* http://www.cnblogs.com/jane0912/p/4177779.html
-* https://www.zhihu.com/question/26682162
-* http://www.cnblogs.com/xieqiankun/p/xpath_extract_text.html
+* [如何利用爬虫爬微信公众号的内容？ - 何大米的回答 - 知乎](https://www.zhihu.com/question/31285583/answer/100263061)
+* [tech_post/crawl wechat article.md at master · Alexis374/tech_post · GitHub](https://github.com/Alexis374/tech_post/blob/master/crawl%20wechat%20article.md)
+* [selenium +python 如何得到弹出窗口 - jane0912 - 博客园](http://www.cnblogs.com/jane0912/p/4177779.html)
+* [xpath如何取出被标签包含的文字内容？ - Python - 知乎](https://www.zhihu.com/question/26682162)
+* [xpath提取多个标签下的text - 青南 - 博客园](http://www.cnblogs.com/xieqiankun/p/xpath_extract_text.html)
 
 *** 
 
 #### 效果
 
+获取文章列表：
+
 ![](result_1581.png)
+
+通过临时链接获取真实链接：
+
+![](result_0726.png)
 
 *** 

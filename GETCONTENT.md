@@ -68,3 +68,16 @@ http://mp.weixin.qq.com/s?__biz=MzAwNTMxMzg1MA==&mid=2654067776&idx=1&sn=b4c1261
 ```
 
 拷贝到浏览器中访问，成功。
+
+*** 
+
+2016-7-26 更新
+
+刚刚在实现 “获取真实网址” 这个方法的时候，发现 `msg_link` 这个链接其实就是我们需要的链接：
+
+```
+var msg_link = "http://mp.weixin.qq.com/s?__biz=MzAwNTMxMzg1MA==&amp;mid=2654067776&amp;idx=1&amp;sn=b4c1261a785a59dd6268142b0b358b50#rd";
+```
+
+只不过需要把里面的 `&amp;` 转换成 `&` 就可以了。
+
